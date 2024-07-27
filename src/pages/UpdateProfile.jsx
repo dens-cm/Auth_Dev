@@ -1,7 +1,7 @@
 import { Alert, Button, Card, CardBody, CardHeader, FormControl, FormLabel, Heading, Input } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from '../contexts/AuthContext'
-import { useRef, useState } from "react";
+import { useRef, useState } from "react"
 
 export default function UpdateProfile() {
 
@@ -13,6 +13,11 @@ export default function UpdateProfile() {
     const [ error, setError ] = useState('')
     const [ message, setMessage ] = useState('')
     const [ loading, setLoading ] = useState(false)
+
+    async function handleEmailUpdate(newEmail) {
+        await updateEmail(newEmail)
+        await currentUser.sendEmailVerification()
+    }
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -26,7 +31,7 @@ export default function UpdateProfile() {
         setError('')
         setMessage('')
         if(emailRef.current.value !== currentUser.email) {
-            promises.push(updateEmail(emailRef.current.value))
+            promises.push(handleEmailUpdate(emailRef.current.value))
         }
 
         if(passwordRef.current.value) {
