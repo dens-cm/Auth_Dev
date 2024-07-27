@@ -4,5 +4,12 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/auth_dev/"
+  build: {
+    outDir: 'dist',
+  },
+  server: {
+    mimeTypes: {
+      'text/css': ['css']
+    }
+  }
 })
